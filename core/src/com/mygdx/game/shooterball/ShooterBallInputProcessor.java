@@ -35,8 +35,8 @@ public class ShooterBallInputProcessor implements InputProcessor {
         if(readytoshoot) {
             x = screenX;
             y = screenY;
-            xo = (MeuJogo.map.getWidth()/2)-(MeuJogo.ball.getWidth()/2);
-            yo = (MeuJogo.map.getHeight()/2)-(MeuJogo.ball.getHeight()/2);
+            xo = (MeuJogo.map.getWidth()/2)-((float)41/2);
+            yo = (MeuJogo.map.getHeight()/2)-((float)41/2);
             m = (y-yo)/(x-xo);
             d = Math.sqrt((double) ((x-xo)*(x-xo)+(y-yo)*(y-yo)));
 
@@ -52,7 +52,7 @@ public class ShooterBallInputProcessor implements InputProcessor {
             System.out.println("~w~" + MeuJogo.map.getWidth());
             System.out.println("~h~" + MeuJogo.map.getHeight());
 
-            ShooterBallController.set((MeuJogo.map.getWidth()/2)-(MeuJogo.ball.getWidth()/2), (MeuJogo.map.getHeight()/2)-(MeuJogo.ball.getHeight()/2));
+            ShooterBallController.set((MeuJogo.map.getWidth()/2)-((float)41/2), (MeuJogo.map.getHeight()/2)-((float)41/2));
 
             readytoshoot = false;
         }

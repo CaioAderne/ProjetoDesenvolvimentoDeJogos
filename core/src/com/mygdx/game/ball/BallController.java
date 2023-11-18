@@ -44,8 +44,8 @@ public class BallController {
         for (Ball vector :aliveBalls)
         {
             vector.draw(batch,delta);
-            //if((int)vector.index == 41)
-               // set();
+            if((int)vector.index == 41)
+                set();
         }
     }
 

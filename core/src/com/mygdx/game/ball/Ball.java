@@ -26,7 +26,7 @@ public class Ball extends Sprite {
 
     public void update(float delta){
         index = index+100*delta;
-        System.out.println("index: " + index );
+        //System.out.println("index: " + index );
         if(index >= MeuJogo.path.size()-1)
         {
             index = MeuJogo.path.size()-1;
