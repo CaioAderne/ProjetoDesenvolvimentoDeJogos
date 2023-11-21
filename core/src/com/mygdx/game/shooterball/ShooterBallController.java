@@ -5,26 +5,27 @@ import com.mygdx.game.MeuJogo;
 import com.mygdx.game.shooterball.ShooterBall;
 import com.mygdx.game.shooterball.ShooterBallInputProcessor;
 import java.util.Random;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 
 public abstract class ShooterBallController {
     static Random random = new Random();
-    private static ConcurrentLinkedQueue<ShooterBall> aliveShooterBalls;
-    private static ConcurrentLinkedQueue<ShooterBall> deadShooterBalls;
+    private static ConcurrentLinkedDeque<ShooterBall> aliveShooterBalls;
+    private static ConcurrentLinkedDeque<ShooterBall> deadShooterBalls;
     //private static int i;
 
 
 
     public static void init(){
-        aliveShooterBalls = new ConcurrentLinkedQueue<ShooterBall>();
-        deadShooterBalls = new ConcurrentLinkedQueue<ShooterBall>();
+        aliveShooterBalls = new ConcurrentLinkedDeque<ShooterBall>();
+        deadShooterBalls = new ConcurrentLinkedDeque<ShooterBall>();
         ShooterBallInputProcessor ShooterBallInputProcessor = new ShooterBallInputProcessor();
         MeuJogo.addInputProcessor(ShooterBallInputProcessor);
         ShooterBall a = new ShooterBall(random.nextInt(4));
         ShooterBall b = new ShooterBall(random.nextInt(4));
-        b.setX((MeuJogo.map.getWidth()/2)-50-((float)41/2));
-        b.setY((MeuJogo.map.getHeight()/2)-50-((float)41/2));
+        b.setX((MeuJogo.map.getWidth()/2)-((float)41/2));
+        b.setY((MeuJogo.map.getHeight()/2)-((float)41/2));
         aliveShooterBalls.add(b);
         a.setX((MeuJogo.map.getWidth()/2)-((float)41/2));
         a.setY((MeuJogo.map.getHeight()/2)-((float)41/2));
@@ -50,7 +51,8 @@ public abstract class ShooterBallController {
         {
             a = new ShooterBall(number);
         }
-        aliveShooterBalls.add(a);
+        aliveShooterBalls.addFirst(a);
+
         a.setX(x);
         a.setY(y);
     }
