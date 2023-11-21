@@ -159,8 +159,8 @@ public class MeuJogo extends ApplicationAdapter {
 			x =(int) nextpixel.x;
 			y =(int) nextpixel.y;
 			path.add(nextpixel);
-			System.out.println("Vector2: " + nextpixel.x + ", " + nextpixel.y + ")");
-		};
+			//System.out.println("Vector2: " + nextpixel.x + ", " + nextpixel.y + ")");
+		}
 		pixmap.setColor(0, 0, 0, 1);
 		pixmap.drawPixel(x,y);
 
@@ -170,8 +170,6 @@ public class MeuJogo extends ApplicationAdapter {
 		}
 */
 		//System.out.println("Vector2: " + path.get(0).x + ", " + path.get(0).y + ")");
-
-
 
 
 
@@ -207,7 +205,7 @@ public class MeuJogo extends ApplicationAdapter {
 		ShooterBallController.draw(batch,Gdx.graphics.getDeltaTime());
 
 		//batch.draw(shooterBall.getTexture(), (map.getWidth()/2)-shooterBall.getWidth()/2, (map.getHeight()/2)-shooterBall.getHeight()/2);
-		//batch.draw(manager.<Texture>get("balls/1.png"), (map.getWidth()/2)-ball.getWidth(), (map.getHeight()/2)-ball.getHeight(), ball.getWidth()/2, ball.getHeight()/2);
+		//batch.draw(manager.<Texture>get("balls/1.png"), (map.getWidth()/2)-41, (map.getHeight()/2)-41, ((float)41/2), ((float)41/2));
 
 		batch.end();
 	}
