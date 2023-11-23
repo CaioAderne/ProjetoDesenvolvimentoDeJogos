@@ -2,11 +2,14 @@ package com.mygdx.game.shooterball;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.MeuJogo;
+import com.mygdx.game.ball.Ball;
 import com.mygdx.game.shooterball.ShooterBall;
 import com.mygdx.game.shooterball.ShooterBallInputProcessor;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+//import static com.mygdx.game.ball.BallController.aliveBalls;
 
 
 public abstract class ShooterBallController {
@@ -82,6 +85,8 @@ public abstract class ShooterBallController {
             {
                 a.draw(batch);
                 a.update(delta);
+
+                //for(Ball b: aliveBalls)
 
                 if (a.isOutOfScreen()){
                     aliveShooterBalls.remove(a);

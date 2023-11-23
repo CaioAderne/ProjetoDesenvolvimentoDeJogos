@@ -7,14 +7,16 @@ import com.mygdx.game.ball.BallInputProcessor;
 
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class BallController {
     static Random random = new Random();
-    private static ConcurrentLinkedDeque<Ball> aliveBalls;
-    private static ConcurrentLinkedDeque<Ball> deadBalls;
+    private static CopyOnWriteArrayList<Ball> aliveBalls;
+    private static CopyOnWriteArrayList<Ball> deadBalls;
+
     public static void init(){
-        aliveBalls = new ConcurrentLinkedDeque<Ball>();
-        deadBalls = new ConcurrentLinkedDeque<Ball>();
+        aliveBalls = new CopyOnWriteArrayList<Ball>();
+        deadBalls = new CopyOnWriteArrayList<Ball>();
         BallInputProcessor BallInputProcessor = new BallInputProcessor();
         MeuJogo.addInputProcessor(BallInputProcessor);
         set();
@@ -23,15 +25,17 @@ public class BallController {
     private static void set(){
         Ball a = null;
         int cont=0;
+        int i=0;
         int number = random.nextInt(4);
         //System.out.println("Vector2: "+ number);
         for (Ball vector : deadBalls){
             if(vector.ballType == number )
             {
-                a = deadBalls.remove();
+                a = deadBalls.remove(i);
                 cont++;
                 break;
             }
+            i++;
         }
         if (cont==0)
         {
@@ -39,25 +43,36 @@ public class BallController {
         }
         a.setY(MeuJogo.path.get(0).y);
         a.setX(MeuJogo.path.get(0).x);
-        aliveBalls.addFirst(a);
+        aliveBalls.add(0,a);
     }
     private static void endpoint(int ballsToRemove)
     {
         Ball a;
         for(int j =0;j<ballsToRemove;j++)
         {
-            a = aliveBalls.removeLast();
+            a = aliveBalls.remove(aliveBalls.size()-1);
             a.index = 0;
-            deadBalls.add(a);
+            deadBalls.add(0,a);
         }
     }
+
+//    public static boolean ballColision(int x, int y,int number)
+//    {
+//        for (Ball a :aliveBalls)
+//        {
+//            if((x>=a.getX()||x<=a.getX()+40)&&(y>=a.getY()||y<=a.getY()+40))
+//            {
+//
+//            }
+//        }
+//    }
     public static void draw(SpriteBatch batch, float delta)
     {
-        if(aliveBalls.getFirst().index>=41)
+        if(aliveBalls.get(0).index>=41)
         {
             set();
         }
-        else if(aliveBalls.getLast().index == MeuJogo.path.size()-1)
+        else if(aliveBalls.get(aliveBalls.size()-1).index == MeuJogo.path.size()-1)
         {
             endpoint(25);
         }
