@@ -92,8 +92,7 @@ public class MeuJogo extends ApplicationAdapter {
 		//shooterBall = new ShooterBall(String.valueOf(random.nextInt(4)));
 		map = new Map("1");
 		//ball = new Ball("0");
-		BallController.init();
-		ShooterBallController.init();
+
 		//pixmap = new Pixmap(map.getTexture());
 		map.getTexture().getTextureData().prepare();
 		pixmap = map.getTexture().getTextureData().consumePixmap();
@@ -171,7 +170,8 @@ public class MeuJogo extends ApplicationAdapter {
 */
 		//System.out.println("Vector2: " + path.get(0).x + ", " + path.get(0).y + ")");
 
-
+		BallController.init();
+		ShooterBallController.init();
 
 		cam = new OrthographicCamera();
 
