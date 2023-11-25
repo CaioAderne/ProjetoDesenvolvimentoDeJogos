@@ -14,7 +14,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.ball.Ball;
 import com.mygdx.game.ball.BallController;
-import com.mygdx.game.balls.BalloonController;
 import com.mygdx.game.shooterball.ShooterBall;
 import com.mygdx.game.maps.Map;
 import com.mygdx.game.shooterball.ShooterBallController;
@@ -37,11 +36,10 @@ public class MeuJogo extends ApplicationAdapter {
 	public OrthographicCamera cam;
 	Pixmap pixmap;
 
-	int startx, starty, endx, endy;
+	public static int startx, starty, endx, endy, lives;
+	public static float score;
 	public static ArrayList<Vector2> path = new ArrayList<>();
 	Vector2 nextpixel;
-
-
 
 	Texture pixmaptex;
 
@@ -49,6 +47,12 @@ public class MeuJogo extends ApplicationAdapter {
 		if (multiplexer == null) multiplexer = new InputMultiplexer();
 		multiplexer.addProcessor(inputProcessor);
 		Gdx.input.setInputProcessor(multiplexer);
+	}
+
+	public static void resetStats()
+	{
+		lives=3;
+		score=0;
 	}
 
 	public static Vector2 findWalkablePix(int x, int y, Pixmap pixmap)
@@ -88,6 +92,7 @@ public class MeuJogo extends ApplicationAdapter {
 		manager.load("balls/1.png", Texture.class);
 		manager.load("balls/2.png", Texture.class);
 		manager.load("balls/3.png", Texture.class);
+		manager.load("gameover.png", Texture.class);
 		manager.finishLoading();//trava o jogo
 		//shooterBall = new ShooterBall(String.valueOf(random.nextInt(4)));
 		map = new Map("1");
@@ -172,6 +177,7 @@ public class MeuJogo extends ApplicationAdapter {
 
 		BallController.init();
 		ShooterBallController.init();
+		resetStats();
 
 		cam = new OrthographicCamera();
 
@@ -196,16 +202,23 @@ public class MeuJogo extends ApplicationAdapter {
 
 		Gdx.graphics.setTitle(Gdx.graphics.getFramesPerSecond() + "");
 		batch.begin();
+		System.out.println("lives: " + lives + "\tscore: " + score);
+		if(lives>0)
+		{
+			batch.draw(pixmaptex, 0, 0, map.getWidth(), map.getHeight());
+			//shooterBall.draw(batch);
+			//ball.draw(batch,Gdx.graphics.getDeltaTime());
+			BallController.draw(batch,Gdx.graphics.getDeltaTime());
+			ShooterBallController.draw(batch,Gdx.graphics.getDeltaTime());
 
+			//batch.draw(shooterBall.getTexture(), (map.getWidth()/2)-shooterBall.getWidth()/2, (map.getHeight()/2)-shooterBall.getHeight()/2);
+			//batch.draw(manager.<Texture>get("balls/1.png"), (map.getWidth()/2)-41, (map.getHeight()/2)-41, ((float)41/2), ((float)41/2));
+		}
+		else
+		{
+			batch.draw(manager.<Texture>get("gameover.png"),0,0);
+		}
 
-		batch.draw(pixmaptex, 0, 0, map.getWidth(), map.getHeight());
-		//shooterBall.draw(batch);
-		//ball.draw(batch,Gdx.graphics.getDeltaTime());
-		BallController.draw(batch,Gdx.graphics.getDeltaTime());
-		ShooterBallController.draw(batch,Gdx.graphics.getDeltaTime());
-
-		//batch.draw(shooterBall.getTexture(), (map.getWidth()/2)-shooterBall.getWidth()/2, (map.getHeight()/2)-shooterBall.getHeight()/2);
-		//batch.draw(manager.<Texture>get("balls/1.png"), (map.getWidth()/2)-41, (map.getHeight()/2)-41, ((float)41/2), ((float)41/2));
 
 		batch.end();
 	}

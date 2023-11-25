@@ -3,7 +3,7 @@ package com.mygdx.game.shooterball;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.game.MeuJogo;
-import com.mygdx.game.balls.BalloonController;
+
 
 public class ShooterBallInputProcessor implements InputProcessor {
     static float x, y;
