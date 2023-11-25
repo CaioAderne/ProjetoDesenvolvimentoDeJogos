@@ -1,12 +1,15 @@
 package com.mygdx.game.ball;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.IntArray;
 import com.mygdx.game.MeuJogo;
 import com.mygdx.game.ball.Ball;
 import com.mygdx.game.ball.BallInputProcessor;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Vector;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -64,25 +67,65 @@ public class BallController {
     public static boolean ballColision(int x, int y,int number)
     {
         boolean ret = false;
-        int i = 0;
+        int i = 0,j,cont=0;
         Ball aux;
-        //ArrayList<int> indexes;
+        IntArray indexes = new IntArray();
         for (Ball a :aliveBalls)
         {
             if((x < a.getX() + 41) && (x + 41 > a.getX()) && (y < a.getY() + 41) && (y + 41 > a.getY()))
             {
-                System.out.println("colision now " + aliveBalls.size());
-                for(int j=i+1;j<aliveBalls.size();j++)
+                for(j=i;j<aliveBalls.size();j++)
                 {
-                    System.out.println("j: " + j);
-                    aliveBalls.get(j).updateWith41();
+                    if(aliveBalls.get(j).ballType == number)
+                    {
+                        cont++;
+                        indexes.add(j);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                if(a.index+41 >= MeuJogo.path.size())
+                for(j=i;j>=0;j--)
                 {
-                    endpoint(50);
+                    if(aliveBalls.get(j).ballType == number)
+                    {
+                        if(j!=i)
+                        {
+                            cont++;
+                            indexes.add(j);
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                set(i+1,(int) a.index+41,number);
-
+                if(cont>1)
+                {
+                    indexes.sort();
+                    for(j=indexes.get(0)+cont ; j< aliveBalls.size(); j++)
+                    {
+                        aliveBalls.get(j).updateWithLess40(cont);
+                    }
+                    for(j=0;j<cont;j++)
+                    {
+                        aux = aliveBalls.remove(indexes.get(0));
+                        aux.index = 0;
+                        deadBalls.add(0,aux);
+                    }
+                }
+                else{
+                    for(j=i+1;j<aliveBalls.size();j++)
+                    {
+                        aliveBalls.get(j).updateWith40();
+                    }
+                    if(a.index+40 >= MeuJogo.path.size())
+                    {
+                        endpoint(40);
+                    }
+                    set(i+1,(int) a.index+40,number);
+                }
                 ret=true;
                 break;
             }
@@ -92,13 +135,13 @@ public class BallController {
     }
     public static void draw(SpriteBatch batch, float delta)
     {
-        if(aliveBalls.get(0).index>=41)
+        if(aliveBalls.get(0).index>=40)
         {
             set(0,0,-1);
         }
         else if(aliveBalls.get(aliveBalls.size()-1).index == MeuJogo.path.size()-1)
         {
-            endpoint(50);
+            endpoint(40);
         }
         for (Ball vector :aliveBalls)
         {

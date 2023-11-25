@@ -8,6 +8,7 @@ import com.mygdx.game.shooterball.ShooterBallInputProcessor;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static com.mygdx.game.ball.BallController.ballColision;
 
@@ -16,25 +17,25 @@ import static com.mygdx.game.ball.BallController.ballColision;
 
 public abstract class ShooterBallController {
     static Random random = new Random();
-    private static ConcurrentLinkedDeque<ShooterBall> aliveShooterBalls;
-    private static ConcurrentLinkedDeque<ShooterBall> deadShooterBalls;
+    private static CopyOnWriteArrayList<ShooterBall> aliveShooterBalls;
+    private static CopyOnWriteArrayList<ShooterBall> deadShooterBalls;
     //private static int i;
 
 
 
     public static void init(){
-        aliveShooterBalls = new ConcurrentLinkedDeque<ShooterBall>();
-        deadShooterBalls = new ConcurrentLinkedDeque<ShooterBall>();
+        aliveShooterBalls = new CopyOnWriteArrayList<ShooterBall>();
+        deadShooterBalls = new CopyOnWriteArrayList<ShooterBall>();
         ShooterBallInputProcessor ShooterBallInputProcessor = new ShooterBallInputProcessor();
         MeuJogo.addInputProcessor(ShooterBallInputProcessor);
         ShooterBall a = new ShooterBall(random.nextInt(4));
         ShooterBall b = new ShooterBall(random.nextInt(4));
         b.setX((MeuJogo.map.getWidth()/2)-((float)41/2));
         b.setY((MeuJogo.map.getHeight()/2)-((float)41/2));
-        aliveShooterBalls.add(b);
+        aliveShooterBalls.add(0,b);
         a.setX((MeuJogo.map.getWidth()/2)-((float)41/2));
         a.setY((MeuJogo.map.getHeight()/2)-((float)41/2));
-        aliveShooterBalls.add(a);
+        aliveShooterBalls.add(0,a);
 
     }
 
@@ -42,21 +43,23 @@ public abstract class ShooterBallController {
     public static void set(float x, float y){
         ShooterBall a = null;
         int cont=0;
+        int i=0;
         int number = random.nextInt(4);
         //System.out.println("Vector2: "+ number);
         for (ShooterBall vector :deadShooterBalls){
             if(vector.ballType == number )
             {
-                a = deadShooterBalls.remove();
+                a = deadShooterBalls.remove(i);
                 cont++;
                 break;
             }
+            i++;
         }
         if (cont==0)
         {
             a = new ShooterBall(number);
         }
-        aliveShooterBalls.addFirst(a);
+        aliveShooterBalls.add(0,a);
 
         a.setX(x);
         a.setY(y);
