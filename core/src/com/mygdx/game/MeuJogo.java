@@ -5,9 +5,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -38,7 +40,10 @@ public class MeuJogo extends ApplicationAdapter {
 
 	public static int startx, starty, endx, endy, lives;
 	public static float score;
+	public static String textLives;
 	public static ArrayList<Vector2> path = new ArrayList<>();
+	private static BitmapFontLoader.BitmapFontParameter bfp = new BitmapFontLoader.BitmapFontParameter();
+	BitmapFont font;
 	Vector2 nextpixel;
 
 	Texture pixmaptex;
@@ -80,6 +85,9 @@ public class MeuJogo extends ApplicationAdapter {
 		return ret;
 	}
 
+
+
+
 	@Override
 	public void create () {
 
@@ -93,6 +101,7 @@ public class MeuJogo extends ApplicationAdapter {
 		manager.load("balls/2.png", Texture.class);
 		manager.load("balls/3.png", Texture.class);
 		manager.load("gameover.png", Texture.class);
+		manager.load("fonte.fnt", BitmapFont.class, bfp);
 		manager.finishLoading();//trava o jogo
 		//shooterBall = new ShooterBall(String.valueOf(random.nextInt(4)));
 		map = new Map("1");
@@ -101,6 +110,7 @@ public class MeuJogo extends ApplicationAdapter {
 		//pixmap = new Pixmap(map.getTexture());
 		map.getTexture().getTextureData().prepare();
 		pixmap = map.getTexture().getTextureData().consumePixmap();
+		font = manager.get("fonte.fnt", BitmapFont.class);
 		//pixmap = new Pixmap(map.getTexture().getWidth(), map.getTexture().getHeight(), Pixmap.Format.RGBA8888);
 
 
@@ -202,7 +212,7 @@ public class MeuJogo extends ApplicationAdapter {
 
 		Gdx.graphics.setTitle(Gdx.graphics.getFramesPerSecond() + "");
 		batch.begin();
-		System.out.println("lives: " + lives + "\tscore: " + score);
+		//System.out.println("lives: " + lives + "\tscore: " + score);
 		if(lives>0)
 		{
 			batch.draw(pixmaptex, 0, 0, map.getWidth(), map.getHeight());
@@ -210,6 +220,8 @@ public class MeuJogo extends ApplicationAdapter {
 			//ball.draw(batch,Gdx.graphics.getDeltaTime());
 			BallController.draw(batch,Gdx.graphics.getDeltaTime());
 			ShooterBallController.draw(batch,Gdx.graphics.getDeltaTime());
+			font.draw(batch, "Lives: " + lives, 1000, 630);
+			font.draw(batch, "Score: " + (int)score, 0, 630);
 
 			//batch.draw(shooterBall.getTexture(), (map.getWidth()/2)-shooterBall.getWidth()/2, (map.getHeight()/2)-shooterBall.getHeight()/2);
 			//batch.draw(manager.<Texture>get("balls/1.png"), (map.getWidth()/2)-41, (map.getHeight()/2)-41, ((float)41/2), ((float)41/2));

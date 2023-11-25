@@ -116,7 +116,7 @@ public class BallController {
                         aux.index = 0;
                         deadBalls.add(0,aux);
                     }
-                    MeuJogo.score += (cont+1)*100*(0.5*cont);
+                    MeuJogo.score += (cont+1)*10*(0.5*cont);
                 }
                 else{
                     for(j=i+1;j<aliveBalls.size();j++)
