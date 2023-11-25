@@ -44,14 +44,14 @@ public class ShooterBallInputProcessor implements InputProcessor {
             deltax = (x-xo)/Math.abs(x-xo);
 
             teste = (x-xo)/(float)d;
-
+/*
             System.out.println("X : " +  x + "~Y~" + y);
             System.out.println("xo : " +  xo + "~Yo~" + yo);
             System.out.println("m : " +  m + "~deltaY~" + deltay);
             System.out.println("~deltax~" + deltax);
             System.out.println("~w~" + MeuJogo.map.getWidth());
             System.out.println("~h~" + MeuJogo.map.getHeight());
-
+*/
             ShooterBallController.set((MeuJogo.map.getWidth()/2)-((float)41/2), (MeuJogo.map.getHeight()/2)-((float)41/2));
 
             readytoshoot = false;

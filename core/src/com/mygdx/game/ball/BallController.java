@@ -56,25 +56,30 @@ public class BallController {
         }
     }
 
-//    public static boolean ballColision(int x, int y,int number)
-//    {
-//        for (Ball a :aliveBalls)
-//        {
-//            if((x>=a.getX()||x<=a.getX()+40)&&(y>=a.getY()||y<=a.getY()+40))
-//            {
-//
-//            }
-//        }
-//    }
+    public static boolean ballColision(int x, int y,int number)
+    {
+        boolean ret = false;
+        int i;
+        for (Ball a :aliveBalls)
+        {
+            if((x < a.getX() + 41) && (x + 41 > a.getX()) && (y < a.getY() + 41) && (y + 41 > a.getY()))
+            {
+                System.out.println("colision now");
+                ret=true;
+                break;
+            }
+        }
+        return ret;
+    }
     public static void draw(SpriteBatch batch, float delta)
     {
         if(aliveBalls.get(0).index>=41)
         {
-            set();
+            //set();
         }
         else if(aliveBalls.get(aliveBalls.size()-1).index == MeuJogo.path.size()-1)
         {
-            endpoint(25);
+            //endpoint(25);
         }
         for (Ball vector :aliveBalls)
         {

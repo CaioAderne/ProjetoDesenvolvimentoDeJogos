@@ -9,6 +9,8 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import static com.mygdx.game.ball.BallController.ballColision;
+
 //import static com.mygdx.game.ball.BallController.aliveBalls;
 
 
@@ -86,8 +88,12 @@ public abstract class ShooterBallController {
                 a.draw(batch);
                 a.update(delta);
 
-                //for(Ball b: aliveBalls)
-
+                if(ballColision((int)a.getX(),(int)a.getY(),a.ballType) )
+                {
+                    aliveShooterBalls.remove(a);
+                    deadShooterBalls.add(a);
+                    ShooterBallInputProcessor.readytoshoot = true;
+                }
                 if (a.isOutOfScreen()){
                     aliveShooterBalls.remove(a);
                     deadShooterBalls.add(a);

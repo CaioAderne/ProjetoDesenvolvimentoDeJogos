@@ -34,7 +34,7 @@ public class ShooterBall extends Sprite {
             //System.out.println("Xo : " +  shooterBallInputProcessor.xo + "~Yo~" + shooterBallInputProcessor.yo);
             this.setX((float)(this.getX() + (shooterBallInputProcessor.deltax*400*delta/Math.sqrt((double)(1+shooterBallInputProcessor.m*shooterBallInputProcessor.m))) - ((this.getWidth()*delta)/(2*Math.sqrt((double)(1+shooterBallInputProcessor.m*shooterBallInputProcessor.m))))));
             this.setY(Gdx.graphics.getHeight() - (shooterBallInputProcessor.m*(this.getX()-shooterBallInputProcessor.xo)+shooterBallInputProcessor.yo) - this.getHeight()*delta/2);
-            System.out.println("X : " +  this.getWidth()/2 + "~Y~" + this.getX());
+            //System.out.println("X : " +  this.getWidth()/2 + "~Y~" + this.getX());
         }
     }
 }
