@@ -5,6 +5,7 @@ import com.mygdx.game.MeuJogo;
 import com.mygdx.game.ball.Ball;
 import com.mygdx.game.ball.BallInputProcessor;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -19,14 +20,17 @@ public class BallController {
         deadBalls = new CopyOnWriteArrayList<Ball>();
         BallInputProcessor BallInputProcessor = new BallInputProcessor();
         MeuJogo.addInputProcessor(BallInputProcessor);
-        set();
+        set(0,0,-1);
     }
 
-    private static void set(){
+    private static void set(int index,int indexPath,int number){
         Ball a = null;
         int cont=0;
         int i=0;
-        int number = random.nextInt(4);
+        if(number > 4 || number < 0)
+        {
+            number = random.nextInt(4);
+        }
         //System.out.println("Vector2: "+ number);
         for (Ball vector : deadBalls){
             if(vector.ballType == number )
@@ -41,9 +45,10 @@ public class BallController {
         {
             a = new Ball(number);
         }
-        a.setY(MeuJogo.path.get(0).y);
-        a.setX(MeuJogo.path.get(0).x);
-        aliveBalls.add(0,a);
+        a.setY(MeuJogo.path.get(indexPath).y);
+        a.setX(MeuJogo.path.get(indexPath).x);
+        a.index = indexPath;
+        aliveBalls.add(index,a);
     }
     private static void endpoint(int ballsToRemove)
     {
@@ -59,15 +64,29 @@ public class BallController {
     public static boolean ballColision(int x, int y,int number)
     {
         boolean ret = false;
-        int i;
+        int i = 0;
+        Ball aux;
+        //ArrayList<int> indexes;
         for (Ball a :aliveBalls)
         {
             if((x < a.getX() + 41) && (x + 41 > a.getX()) && (y < a.getY() + 41) && (y + 41 > a.getY()))
             {
-                System.out.println("colision now");
+                System.out.println("colision now " + aliveBalls.size());
+                for(int j=i+1;j<aliveBalls.size();j++)
+                {
+                    System.out.println("j: " + j);
+                    aliveBalls.get(j).updateWith41();
+                }
+                if(a.index+41 >= MeuJogo.path.size())
+                {
+                    endpoint(50);
+                }
+                set(i+1,(int) a.index+41,number);
+
                 ret=true;
                 break;
             }
+            i++;
         }
         return ret;
     }
@@ -75,11 +94,11 @@ public class BallController {
     {
         if(aliveBalls.get(0).index>=41)
         {
-            //set();
+            set(0,0,-1);
         }
         else if(aliveBalls.get(aliveBalls.size()-1).index == MeuJogo.path.size()-1)
         {
-            //endpoint(25);
+            endpoint(50);
         }
         for (Ball vector :aliveBalls)
         {

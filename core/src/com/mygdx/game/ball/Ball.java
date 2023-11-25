@@ -35,6 +35,17 @@ public class Ball extends Sprite {
         this.setY(Gdx.graphics.getHeight() - (MeuJogo.path.get((int)index).y));
     }
 
+    public void updateWith41(){
+        index = index+41;
+        //System.out.println("index: " + index );
+        if(index >= MeuJogo.path.size()-1)
+        {
+            index = MeuJogo.path.size()-1;
+        }
+        this.setX(MeuJogo.path.get((int)index).x);
+        this.setY(Gdx.graphics.getHeight() - (MeuJogo.path.get((int)index).y));
+    }
+
     public boolean isOutOfScreen(){
         return (this.getX() > Gdx.graphics.getWidth()  || this.getX() < 0 ||this.getY() > Gdx.graphics.getHeight()  || this.getY() < 0);
     }
