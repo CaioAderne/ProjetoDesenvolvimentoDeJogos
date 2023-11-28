@@ -39,6 +39,10 @@ public abstract class ShooterBallController {
 
     }
 
+    public static void Reset()
+    {
+
+    }
 
     public static void set(float x, float y){
         ShooterBall a = null;
@@ -60,7 +64,6 @@ public abstract class ShooterBallController {
             a = new ShooterBall(number);
         }
         aliveShooterBalls.add(0,a);
-
         a.setX(x);
         a.setY(y);
     }
@@ -97,7 +100,7 @@ public abstract class ShooterBallController {
                     deadShooterBalls.add(a);
                     ShooterBallInputProcessor.readytoshoot = true;
                 }
-                if (a.isOutOfScreen()){
+                else if (a.isOutOfScreen()){
                     aliveShooterBalls.remove(a);
                     deadShooterBalls.add(a);
                     ShooterBallInputProcessor.readytoshoot = true;

@@ -25,7 +25,19 @@ public class MeuInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("Ola");
+
+        if(MeuJogo.gameover)
+        {
+            if((screenX >= MeuJogo.map.getWidth()/4) && (screenX <= 100+(MeuJogo.map.getWidth()/4)) && (MeuJogo.map.getHeight() - screenY >= 10) && (MeuJogo.map.getHeight() - screenY <= 110))
+            {
+                System.out.println("restart");
+
+            }
+            else if((screenX >= MeuJogo.map.getWidth()*3/4) && (screenX <= 100+(MeuJogo.map.getWidth()*3/4)) && (MeuJogo.map.getHeight() - screenY >= 10) && (MeuJogo.map.getHeight() - screenY <= 110))
+            {
+                System.out.println("menu");
+            }
+        }
         return false;
     }
 

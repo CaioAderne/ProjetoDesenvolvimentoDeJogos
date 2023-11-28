@@ -29,6 +29,7 @@ import static com.badlogic.gdx.math.MathUtils.random;
 public class MeuJogo extends ApplicationAdapter {
 	SpriteBatch batch;
 	public static ShooterBall shooterBall;
+	public static boolean menu=true,gameover=false;
 
 	public static Map map;
 	public static Ball ball;
@@ -56,7 +57,7 @@ public class MeuJogo extends ApplicationAdapter {
 
 	public static void resetStats()
 	{
-		lives=3;
+		lives=1;
 		score=0;
 	}
 
@@ -101,9 +102,14 @@ public class MeuJogo extends ApplicationAdapter {
 		manager.load("balls/2.png", Texture.class);
 		manager.load("balls/3.png", Texture.class);
 		manager.load("gameover.png", Texture.class);
+		manager.load("replay.png", Texture.class);
+		manager.load("menu.png", Texture.class);
 		manager.load("fonte.fnt", BitmapFont.class, bfp);
 		manager.finishLoading();//trava o jogo
 		//shooterBall = new ShooterBall(String.valueOf(random.nextInt(4)));
+
+		MeuInputProcessor MeuInputProcessor = new MeuInputProcessor();
+		addInputProcessor(MeuInputProcessor);
 		map = new Map("1");
 		//ball = new Ball("0");
 
@@ -213,7 +219,12 @@ public class MeuJogo extends ApplicationAdapter {
 		Gdx.graphics.setTitle(Gdx.graphics.getFramesPerSecond() + "");
 		batch.begin();
 		//System.out.println("lives: " + lives + "\tscore: " + score);
-		if(lives>0)
+		//lives=1;
+		if(menu==true)
+		{
+			menu=false;
+		}
+		else if(lives>0)
 		{
 			batch.draw(pixmaptex, 0, 0, map.getWidth(), map.getHeight());
 			//shooterBall.draw(batch);
@@ -228,7 +239,13 @@ public class MeuJogo extends ApplicationAdapter {
 		}
 		else
 		{
+			if(!gameover)
+			{
+				gameover=true;
+			}
 			batch.draw(manager.<Texture>get("gameover.png"),0,0);
+			batch.draw(manager.<Texture>get("replay.png"),(map.getWidth()/4),10,100,100);
+			batch.draw(manager.<Texture>get("menu.png"),(map.getWidth()*3/4),10,100,100);
 		}
 
 
