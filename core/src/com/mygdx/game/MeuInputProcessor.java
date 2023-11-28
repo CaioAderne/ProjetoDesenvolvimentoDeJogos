@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.InputProcessor;
+import com.mygdx.game.ball.BallController;
+import com.mygdx.game.shooterball.ShooterBallController;
 
 
 public class MeuInputProcessor implements InputProcessor {
@@ -30,6 +32,10 @@ public class MeuInputProcessor implements InputProcessor {
         {
             if((screenX >= MeuJogo.map.getWidth()/4) && (screenX <= 100+(MeuJogo.map.getWidth()/4)) && (MeuJogo.map.getHeight() - screenY >= 10) && (MeuJogo.map.getHeight() - screenY <= 110))
             {
+                ShooterBallController.Reset();
+                //BallController.Reset();
+                MeuJogo.resetStats();
+                MeuJogo.gameover=false;
                 System.out.println("restart");
 
             }

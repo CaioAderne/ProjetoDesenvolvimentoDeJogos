@@ -26,6 +26,7 @@ public class BallController {
         set(0,0,-1);
     }
 
+
     private static void set(int index,int indexPath,int number){
         Ball a = null;
         int cont=0;
@@ -135,6 +136,10 @@ public class BallController {
             i++;
         }
         return ret;
+    }
+
+    public static void Reset(){
+        endpoint(aliveBalls.size());
     }
     public static void draw(SpriteBatch batch, float delta)
     {

@@ -1,6 +1,7 @@
 package com.mygdx.game.shooterball;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Null;
 import com.mygdx.game.MeuJogo;
 import com.mygdx.game.ball.Ball;
 import com.mygdx.game.shooterball.ShooterBall;
@@ -41,7 +42,14 @@ public abstract class ShooterBallController {
 
     public static void Reset()
     {
-
+        ShooterBall a;
+        for(int i=0;i<aliveShooterBalls.size();i++)
+        {
+            a = aliveShooterBalls.remove(0);
+            deadShooterBalls.add(a);
+        }
+        set((MeuJogo.map.getWidth()/2)-((float)41/2), (MeuJogo.map.getHeight()/2)-((float)41/2));
+        set((MeuJogo.map.getWidth()/2)-((float)41/2), (MeuJogo.map.getHeight()/2)-((float)41/2));
     }
 
     public static void set(float x, float y){
