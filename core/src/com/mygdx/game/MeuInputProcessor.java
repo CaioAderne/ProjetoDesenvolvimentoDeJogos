@@ -42,14 +42,14 @@ public class MeuInputProcessor implements InputProcessor {
 
         if(MeuJogo.gameover)
         {
-            if((screenX >= MeuJogo.map.getWidth()/4) && (screenX <= 100+(MeuJogo.map.getWidth()/4)) && (MeuJogo.map.getHeight() - screenY >= 10) && (MeuJogo.map.getHeight() - screenY <= 110))
+            if((screenX >= MeuJogo.map.getWidth()/8) && (screenX <= 100+(MeuJogo.map.getWidth()/8)) && (MeuJogo.map.getHeight() - screenY >= 10) && (MeuJogo.map.getHeight() - screenY <= 110))
             {
                 ShooterBallController.Reset();
                 BallController.Reset();
                 MeuJogo.resetStats();
 
             }
-            else if((screenX >= MeuJogo.map.getWidth()*3/4) && (screenX <= 100+(MeuJogo.map.getWidth()*3/4)) && (MeuJogo.map.getHeight() - screenY >= 10) && (MeuJogo.map.getHeight() - screenY <= 110))
+            else if((screenX >= ((MeuJogo.map.getHeight()/2)-150)) && (screenX <= 100+(((MeuJogo.map.getHeight()/2)-150))) && (MeuJogo.map.getHeight() - screenY >= 10) && (MeuJogo.map.getHeight() - screenY <= 110))
             {
                 System.out.println("menu");
             }

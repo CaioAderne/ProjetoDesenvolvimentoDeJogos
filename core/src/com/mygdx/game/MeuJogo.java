@@ -57,7 +57,7 @@ public class MeuJogo extends ApplicationAdapter {
 
 	public static void resetStats()
 	{
-		lives=3;
+		lives=2;
 		score=0;
 	}
 
@@ -227,7 +227,7 @@ public class MeuJogo extends ApplicationAdapter {
 		}
 		else if(pause==true)
 		{
-			batch.draw(manager.<Texture>get("replay.png"),(map.getWidth()/8),(map.getHeight()/2)-150,300,300);
+			batch.draw(manager.<Texture>get("replay.png"),(map.getWidth()/8),((map.getHeight()/2)-150),300,300);
 			batch.draw(manager.<Texture>get("play.png"),(map.getWidth()*5/8),(map.getHeight()/2)-150,300,300);
 		}
 		else if(lives>0)
