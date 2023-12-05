@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.IntArray;
 import com.mygdx.game.MeuJogo;
 import com.mygdx.game.ball.Ball;
 import com.mygdx.game.ball.BallInputProcessor;
+import com.mygdx.game.shooterball.ShooterBall;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -139,7 +140,13 @@ public class BallController {
     }
 
     public static void Reset(){
-        endpoint(aliveBalls.size());
+        for (Ball a : aliveBalls)
+        {
+            aliveBalls.remove(a);
+            a.index = 0;
+            deadBalls.add(0,a);
+        }
+        set(0,0,-1);
     }
     public static void draw(SpriteBatch batch, float delta)
     {

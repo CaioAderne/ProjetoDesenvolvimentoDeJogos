@@ -12,7 +12,7 @@ public class ShooterBallInputProcessor implements InputProcessor {
     static double d;
 
     //sqrt((x-xo)² + (y-yo)²)
-    static boolean readytoshoot = true;
+    public static boolean readytoshoot = true;
 
     @Override
     public boolean keyDown(int keycode) {
@@ -32,7 +32,7 @@ public class ShooterBallInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if(readytoshoot) {
+        if(readytoshoot && !MeuJogo.gameover) {
             x = screenX;
             y = screenY;
             xo = (MeuJogo.map.getWidth()/2)-((float)41/2);

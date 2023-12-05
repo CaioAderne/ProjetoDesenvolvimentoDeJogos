@@ -95,8 +95,7 @@ public class MeuJogo extends ApplicationAdapter {
 		batch = new SpriteBatch();
 
 		manager = new AssetManager();
-		manager.load("maps/map1_test.png", Texture.class);
-		manager.load("balloon.png", Texture.class);
+		manager.load("maps/map11.png", Texture.class);
 		manager.load("balls/0.png", Texture.class);
 		manager.load("balls/1.png", Texture.class);
 		manager.load("balls/2.png", Texture.class);
@@ -110,7 +109,7 @@ public class MeuJogo extends ApplicationAdapter {
 
 		MeuInputProcessor MeuInputProcessor = new MeuInputProcessor();
 		addInputProcessor(MeuInputProcessor);
-		map = new Map("1");
+		map = new Map("11");
 		//ball = new Ball("0");
 
 		//pixmap = new Pixmap(map.getTexture());
@@ -226,6 +225,7 @@ public class MeuJogo extends ApplicationAdapter {
 		}
 		else if(lives>0)
 		{
+			gameover=false;
 			batch.draw(pixmaptex, 0, 0, map.getWidth(), map.getHeight());
 			//shooterBall.draw(batch);
 			//ball.draw(batch,Gdx.graphics.getDeltaTime());

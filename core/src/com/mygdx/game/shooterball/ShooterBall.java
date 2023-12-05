@@ -20,7 +20,6 @@ public class ShooterBall extends Sprite {
 
     public void draw(SpriteBatch batch, float delta){
         super.draw(batch);
-        update(delta);
     }
 
     public boolean isOutOfScreen(){

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Null;
 import com.mygdx.game.MeuJogo;
 import com.mygdx.game.ball.Ball;
+import com.mygdx.game.ball.BallInputProcessor;
 import com.mygdx.game.shooterball.ShooterBall;
 import com.mygdx.game.shooterball.ShooterBallInputProcessor;
 import java.util.Random;
@@ -18,7 +19,7 @@ import static com.mygdx.game.ball.BallController.ballColision;
 
 public abstract class ShooterBallController {
     static Random random = new Random();
-    private static CopyOnWriteArrayList<ShooterBall> aliveShooterBalls;
+    public static CopyOnWriteArrayList<ShooterBall> aliveShooterBalls;
     private static CopyOnWriteArrayList<ShooterBall> deadShooterBalls;
     //private static int i;
 
@@ -42,14 +43,18 @@ public abstract class ShooterBallController {
 
     public static void Reset()
     {
-        ShooterBall a;
-        for(int i=0;i<aliveShooterBalls.size();i++)
+        for (ShooterBall a : aliveShooterBalls)
         {
-            a = aliveShooterBalls.remove(0);
+            aliveShooterBalls.remove(a);
             deadShooterBalls.add(a);
         }
+
+
         set((MeuJogo.map.getWidth()/2)-((float)41/2), (MeuJogo.map.getHeight()/2)-((float)41/2));
         set((MeuJogo.map.getWidth()/2)-((float)41/2), (MeuJogo.map.getHeight()/2)-((float)41/2));
+        ShooterBallInputProcessor.readytoshoot = true;
+
+
     }
 
     public static void set(float x, float y){
@@ -71,23 +76,14 @@ public abstract class ShooterBallController {
         {
             a = new ShooterBall(number);
         }
-        aliveShooterBalls.add(0,a);
         a.setX(x);
         a.setY(y);
+        aliveShooterBalls.add(0,a);
     }
 
     public static void draw(SpriteBatch batch, float delta){
-//        for (ShooterBall a : aliveShooterBalls){
-//            a.draw(batch);
-//            a.update(delta);
-//
-//            if (a.isOutOfScreen()){
-//                aliveShooterBalls.remove(a);
-//                deadShooterBalls.add(a);
-//                ShooterBallInputProcessor.readytoshoot = true;
-//            }
-//        }
         int i=0;
+
         for (ShooterBall a : aliveShooterBalls){
             if(i==0)
             {
@@ -95,11 +91,11 @@ public abstract class ShooterBallController {
             }
             else if (i==1)
             {
-                a.draw(batch);
+                a.draw(batch,delta);
             }
             else
             {
-                a.draw(batch);
+                a.draw(batch,delta);
                 a.update(delta);
 
                 if(ballColision((int)a.getX(),(int)a.getY(),a.ballType) )

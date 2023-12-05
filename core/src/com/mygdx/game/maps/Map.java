@@ -19,7 +19,7 @@ public class Map extends Sprite {
     //ArrayList
     public Map(String mapnumber){
 
-        super((Texture) MeuJogo.manager.get("maps/map"+mapnumber+"_test.png"));
+        super((Texture) MeuJogo.manager.get("maps/map"+mapnumber+".png"));
         //this.getTexture();
     }
 
