@@ -220,7 +220,7 @@ public class MeuJogo extends ApplicationAdapter {
 		Gdx.graphics.setTitle(Gdx.graphics.getFramesPerSecond() + "");
 		batch.begin();
 		//System.out.println("lives: " + lives + "\tscore: " + score);
-		//lives=1;
+		//lives=0;
 		if(menu==true)
 		{
 			menu=false;
@@ -250,8 +250,9 @@ public class MeuJogo extends ApplicationAdapter {
 			{
 				gameover=true;
 			}
+			font.draw(batch, "Score: " + (int)score, (map.getWidth()*3/8),60);
 			batch.draw(manager.<Texture>get("gameover.png"),0,0);
-			batch.draw(manager.<Texture>get("replay.png"),(map.getWidth()/4),10,100,100);
+			batch.draw(manager.<Texture>get("replay.png"),(map.getWidth()/8),10,100,100);
 			batch.draw(manager.<Texture>get("menu.png"),(map.getWidth()*3/4),10,100,100);
 		}
 
