@@ -23,6 +23,17 @@ public class MeuInputProcessor implements InputProcessor {
 
     @Override
     public boolean keyTyped(char character) {
+        if(character=='p')
+        {
+            MeuJogo.pause=!MeuJogo.pause;
+        }
+        if(MeuJogo.pause && character=='r')
+        {
+            MeuJogo.pause = false;
+            ShooterBallController.Reset();
+            BallController.Reset();
+            MeuJogo.resetStats();
+        }
         return false;
     }
 
@@ -34,12 +45,8 @@ public class MeuInputProcessor implements InputProcessor {
             if((screenX >= MeuJogo.map.getWidth()/4) && (screenX <= 100+(MeuJogo.map.getWidth()/4)) && (MeuJogo.map.getHeight() - screenY >= 10) && (MeuJogo.map.getHeight() - screenY <= 110))
             {
                 ShooterBallController.Reset();
-
                 BallController.Reset();
                 MeuJogo.resetStats();
-
-
-
 
             }
             else if((screenX >= MeuJogo.map.getWidth()*3/4) && (screenX <= 100+(MeuJogo.map.getWidth()*3/4)) && (MeuJogo.map.getHeight() - screenY >= 10) && (MeuJogo.map.getHeight() - screenY <= 110))
